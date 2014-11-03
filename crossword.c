@@ -15,7 +15,7 @@ struct word {
     
 
 void load_word_into_array(char word[], struct word words_array[]);
-void sort_word_array_into_ascending_order(struct word words_array[]);
+void sort_word_array_into_descending_order(struct word words_array[]);
 int next_empty_row(struct word words_array[15]);
 void print_playing_board(char board_array[]);
 void print_solution_board(char board_array[]);
