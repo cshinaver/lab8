@@ -55,6 +55,7 @@ int next_empty_row(struct word words_array[15]) {
     /*
        Takes zeroed structure array as argument,finds
        the first row that is "empty" and returns that index
+       (which also happens to be the total number of stored words)
     */
 
     int len_array = 15;
