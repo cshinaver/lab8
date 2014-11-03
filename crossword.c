@@ -17,6 +17,8 @@ struct word {
 void load_word_into_array(char word[], struct word words_array[]);
 void sort_word_array_into_ascending_order(struct word words_array[]);
 int next_empty_row(struct word words_array[15]);
+void print_playing_board(char board_array[]);
+void print_solution_board(char board_array[]);
 //void place_word_into_board(
 //        char *word_to_place,
 //        char board_array[15][15]
@@ -64,4 +66,17 @@ int next_empty_row(struct word words_array[15]) {
         }
     }
 
+}
+void print_playing_board(char board_array[]) {
+    /*
+       Prints board with pound signs and blank spaces
+       where words are located
+    */
+}
+
+void print_solution_board(char board_array[]) {
+    /*
+       Prints board with pound signs
+       and words are displayed in their appropriate spaces
+    */
 }
