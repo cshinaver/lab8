@@ -42,7 +42,10 @@ int main () {
     load_word_into_array(word4, words_array);
     load_word_into_array(word5, words_array);
 
+    sort_word_array_into_descending_order(words_array);
+
     //##########################################################
+
 
     printf("%s", words_array[0].text);
 
@@ -93,6 +96,37 @@ int next_empty_row(struct word words_array[15]) {
     }
 
 }
+
+
+void sort_word_array_into_descending_order(struct word words_array[15])
+{
+	/*
+	 * sort strings in word array in descending order by length of that string
+	*/
+
+	int numberOfWords,i,j;
+	struct word a;
+
+
+	numberOfWords = next_empty_row(words_array);
+
+	for (i = 0; i < numberOfWords; i++)
+	{
+		for  (j = 0; j < numberOfWords; j++)
+		{
+			if (strlen(words_array[j].text) < strlen(words_array[j+1].text)) // check if next string is longer than previous 
+			{
+				// switch strings if one is longer than other
+				a = words_array[j+1];
+				words_array[j+1] = words_array[j];
+				words_array[j] = a;
+			}
+			
+		}
+
+	}
+}
+
 void print_playing_board(char board_array[]) {
     /*
        Prints board with pound signs and blank spaces
