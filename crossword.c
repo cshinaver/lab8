@@ -77,7 +77,7 @@ int next_empty_row(struct word words_array[15]) {
     int i;
 
     for (i = 0; i < 15; i++) {
-        if (!words_array[i].row) {
+        if (!words_array[i].text[0] && !words_array[i].row) {
             return i;
         }
     }
