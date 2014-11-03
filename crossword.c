@@ -73,6 +73,7 @@ int next_empty_row(struct word words_array[15]) {
        (which also happens to be the total number of stored words)
     */
 
+    //TODO Possibly determine size of array without hard-coding?
     int len_array = 15;
     int i;
 
