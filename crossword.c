@@ -19,13 +19,10 @@ void sort_word_array_into_descending_order(struct word words_array[]);
 int next_empty_row(struct word words_array[15]);
 void print_playing_board(char board_array[]);
 void print_solution_board(char board_array[]);
-//void place_word_into_board(
-//        char *word_to_place,
-//        char board_array[15][15]
-//        );
+void place_word_into_board(struct word *word_to_place, char board_array[][15]);
 
 int main () {
-    char board_array[15][15];
+    char board_array[15][15] = { 0 };
     struct word words_array[15] = {{ 0 }};
 
     //#########################TESTING PURPOSES#################
@@ -62,9 +59,21 @@ void load_word_into_array(char word[], struct word words_array[]) {
 
 }
 
-//void place_word_into_board() {
-//    /*
-//       Takes word and places it into 
+void place_word_into_board(struct word *word_to_place, char board_array[][15]) {
+    /*
+       Checks board for common letters and places word appropriately
+    */
+
+    int i, j, str_len;
+
+    str_len = strlen((*word_to_place).text);
+
+    //for (i = 0; i < 15; i++) {
+
+
+}
+
+
 
 int next_empty_row(struct word words_array[15]) {
     /*
