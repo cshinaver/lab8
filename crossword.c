@@ -27,12 +27,27 @@ void print_solution_board(char board_array[]);
 int main () {
     char board_array[15][15];
     struct word words_array[15] = {{ 0 }};
-    char test_word[] = "hi";
+
+    //#########################TESTING PURPOSES#################
+    char word1[] = "Bananas";
+    char word2[] = "are";
+    char word3[] = "the";
+    char word4[] = "greatest";
+    char word5[] = "fruit";
+
 
 
     //TODO load words into array from stdin
     // Init test array
-    load_word_into_array(test_word, words_array);
+    load_word_into_array(word1, words_array);
+    load_word_into_array(word2, words_array);
+    load_word_into_array(word3, words_array);
+    load_word_into_array(word4, words_array);
+    load_word_into_array(word5, words_array);
+
+    //##########################################################
+
+    printf("%s", words_array[0].text);
 
     return 0;
 }
