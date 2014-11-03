@@ -39,16 +39,16 @@ int main () {
 
     //TODO load words into array from stdin
     // Init test array
-    load_word_into_array(test_word, words_array);
     load_word_into_array(word1, words_array);
     load_word_into_array(word2, words_array);
     load_word_into_array(word3, words_array);
     load_word_into_array(word4, words_array);
     load_word_into_array(word5, words_array);
 
-    sort_word_array_into_ascending_order(words_array);
+    sort_word_array_into_descending_order(words_array);
 
     //##########################################################
+
 
     printf("%s", words_array[0].text);
 
@@ -89,7 +89,7 @@ int next_empty_row(struct word words_array[15]) {
 }
 
 
-void sort_word_array_into_ascending_order(struct word words_array[15])
+void sort_word_array_into_descending_order(struct word words_array[15])
 {
 	/*
 	 * sort strings in word array in descending order by length of that string
@@ -116,6 +116,7 @@ void sort_word_array_into_ascending_order(struct word words_array[15])
 		}
 
 	}
+}
 
 void print_playing_board(char board_array[]) {
     /*
