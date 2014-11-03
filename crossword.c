@@ -31,6 +31,7 @@ int main () {
     //TODO load words into array from stdin
     // Init test array
     load_word_into_array(test_word, words_array);
+    sort_word_array_into_ascending_order(words_array);
 
     return 0;
 }
@@ -63,5 +64,36 @@ int next_empty_row(struct word words_array[15]) {
             return i;
         }
     }
+
+}
+
+
+void sort_word_array_into_ascending_order(struct word words_array[15])
+{
+	/*
+	 * sort strings in word array in descending order by length of that string
+	*/
+
+	int numberOfWords,i,j;
+	struct word a;
+
+
+	numberOfWords = next_empty_row(words_array);
+
+	for (i = 0; i < numberOfWords; i++)
+	{
+		for  (j = 0; j < numberOfWords; j++)
+		{
+			if (strlen(words_array[j].text) < strlen(words_array[j+1].text)) // check if next string is longer than previous 
+			{
+				// switch strings if one is longer than other
+				a = words_array[j+1];
+				words_array[j+1] = words_array[j];
+				words_array[j] = a;
+			}
+			
+		}
+
+	}
 
 }
