@@ -2,8 +2,8 @@
 #include <string.h>
 
 enum Orientation {
-    up,
-    down
+    down,
+    across
 };
 
 struct word {
