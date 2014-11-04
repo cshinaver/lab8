@@ -17,8 +17,8 @@ struct word {
 void load_word_into_array(char word[], struct word words_array[]);
 void sort_word_array_into_descending_order(struct word words_array[]);
 int next_empty_row(struct word words_array[15]);
-void print_playing_board(char board_array[]);
-void print_solution_board(char board_array[]);
+void print_playing_board(char board_array[][15]);
+void print_solution_board(char board_array[][15]);
 void place_word_into_board(struct word *word_to_place, char board_array[][15]);
 
 int main () {
@@ -127,16 +127,45 @@ void sort_word_array_into_descending_order(struct word words_array[15])
 	}
 }
 
-void print_playing_board(char board_array[]) {
+void print_playing_board(char board_array[][15]) {
     /*
        Prints board with pound signs and blank spaces
        where words are located
     */
+
+    int letter_index, row_index;
+
+    for (row_index = 0; row_index < 15; row_index++) {
+        for (letter_index = 0; letter_index < 15; letter_index++) {
+            if (board_array[row_index][letter_index]) {
+                printf("  ", board_array[row_index][letter_index]);
+            }
+            else {
+                printf("# ");
+            }
+        }
+        printf("\n");
+    }
 }
 
-void print_solution_board(char board_array[]) {
+void print_solution_board(char board_array[][15]) {
     /*
        Prints board with pound signs
        and words are displayed in their appropriate spaces
     */
+    
+    int letter_index, row_index;
+
+    for (row_index = 0; row_index < 15; row_index++) {
+        for (letter_index = 0; letter_index < 15; letter_index++) {
+            if (board_array[row_index][letter_index]) {
+                printf("%c ", board_array[row_index][letter_index]);
+            }
+            else {
+                printf("# ");
+            }
+        }
+        printf("\n");
+    }
 }
+
