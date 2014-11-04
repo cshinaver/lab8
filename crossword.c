@@ -104,7 +104,7 @@ void sort_word_array_into_descending_order(struct word words_array[15])
 	 * sort strings in word array in descending order by length of that string
 	*/
 
-	int numberOfWords,i,j;
+	int numberOfWords,i,j,k = 0,flag;
 	struct word a;
 
 
@@ -120,8 +120,13 @@ void sort_word_array_into_descending_order(struct word words_array[15])
 				a = words_array[j+1];
 				words_array[j+1] = words_array[j];
 				words_array[j] = a;
+				flag++;
 			}
 			
+		}
+		if (flag == 0)
+		{
+			break;
 		}
 
 	}
