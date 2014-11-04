@@ -67,11 +67,23 @@ void place_word_into_board(struct word *word_to_place, char board_array[][15]) {
        Checks board for common letters and places word appropriately
     */
 
-    int i, j, str_len;
+    int letter_index, row_index, column_index, len_word;
 
-    str_len = strlen((*word_to_place).text);
+    len_word = strlen((*word_to_place).text);
 
-    //for (i = 0; i < 15; i++) {
+    // First loop, iterates through letters of given word
+    for (letter_index = 0; letter_index < len_word; letter_index++) {
+        // Second loop iterates through board rows
+        for (row_index = 0; row_index < 15; row_index++) {
+            // Third loop iterates through board columns
+            for (column_index = 0; column_index < 15; column_index++) {
+                // Check for letter in row
+                if (board_array[row_index][column_index] == (*word_to_place).text[letter_index]) {
+                    printf("%c is in row %i\n", (*word_to_place).text[letter_index], row_index);
+                }
+            }
+        }
+    }
 
 
 }
