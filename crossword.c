@@ -36,19 +36,18 @@ int main () {
     struct word words_array[15] = {{ 0 }};
 
     //#########################TESTING PURPOSES#################
-    char word1[] = "Bananas";
-    char word2[] = "are";
-    char word3[] = "the";
-    char word4[] = "greatest";
-    char word5[] = "fruit";
-    char word6[] = "fat";
     //TODO load words into array from stdin and keep track of words with number_of_words
     //IMPORTANT: Make sure to convert all input into LOWERCASE using tolower()
     //for each character in the string
+    char word1[] = "notredame";
+    char word2[] = "fightingirish";
+    char word3[] = "und";
+    char word4[] = "computer";
+    char word5[] = "cse";
+    char word6[] = "programming";
 
 
 
-    //TODO load words into array from stdin and keep track of words with number_of_words
     // Init test array
     load_word_into_array(word1, words_array);
     load_word_into_array(word2, words_array);
