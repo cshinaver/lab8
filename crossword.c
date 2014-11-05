@@ -42,6 +42,9 @@ int main () {
     char word4[] = "greatest";
     char word5[] = "fruit";
     char word6[] = "fat";
+    //TODO load words into array from stdin and keep track of words with number_of_words
+    //IMPORTANT: Make sure to convert all input into LOWERCASE using tolower()
+    //for each character in the string
 
 
 
@@ -333,6 +336,7 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
     /*
        Checks if word can be placed in desired row, column and orientation
        // TODO Possibly check the first letter behind position
+       // TODO Make it so it doesn't place off board. yeah...
     */
 
     int i, j, len_word;
