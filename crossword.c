@@ -238,7 +238,7 @@ void print_solution_board(char board_array[][15]) {
                 printf("%c ", board_array[row_index][letter_index]);
             }
             else {
-                printf("# ");
+                printf(". ");
             }
         }
         printf("\n");
