@@ -20,6 +20,13 @@ int next_empty_row(struct word words_array[15]);
 void print_playing_board(char board_array[][15]);
 void print_solution_board(char board_array[][15]);
 void place_word_into_board(struct word *word_to_place, char board_array[][15]);
+void place_word(
+        int row,
+        int column,
+        enum Orientation orientation,
+        char word[],
+        char board_array[][15]
+        );
 
 int main () {
     char board_array[15][15] = { 0 };
@@ -183,6 +190,32 @@ void print_solution_board(char board_array[][15]) {
             }
         }
         printf("\n");
+    }
+}
+
+void place_word(
+        int row,
+        int column,
+        enum Orientation orientation,
+        char word[],
+        char board_array[][15]
+        ) {
+    /* 
+       Places word at passed locations 
+    */
+
+    int i;
+    int len_str = strlen(word);
+
+    if (orientation == down) {
+        for (i = 0; i < len_str; i++) {
+            board_array[row + i][column] = word[i];
+        }
+    }
+    else if (orientation == across) {
+        for (i = 0; i < len_str; i++) {
+            board_array[row][column + i] = word[i];
+        }
     }
 }
 
