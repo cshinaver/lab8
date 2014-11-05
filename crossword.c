@@ -228,8 +228,7 @@ void print_playing_board(char board_array[][15]) {
 
 void print_solution_board(char board_array[][15]) {
     /*
-       Prints board with pound signs
-       and words are displayed in their appropriate spaces
+       Prints board with dots and words are displayed in their appropriate spaces
     */
     
     int letter_index, row_index;
