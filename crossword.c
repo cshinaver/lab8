@@ -19,7 +19,8 @@ void sort_word_array_into_descending_order(struct word words_array[]);
 int next_empty_row(struct word words_array[15]);
 void print_playing_board(char board_array[][15]);
 void print_solution_board(char board_array[][15]);
-void place_word_into_board(struct word *word_to_place, char board_array[][15]);
+int place_word_into_board(struct word *word_to_place, char board_array[][15]);
+int can_word_be_placed(int row, int column, int shared_letter_index, enum Orientation desired_orientation, char word[], char board_array[][15]);
 void place_word(
         int row,
         int column,
@@ -27,8 +28,10 @@ void place_word(
         char word[],
         char board_array[][15]
         );
+enum Orientation find_word_orientation(int row, int column, char board_array[][15]);
 
 int main () {
+    int i, number_of_words;
     char board_array[15][15] = { 0 };
     struct word words_array[15] = {{ 0 }};
 
@@ -38,29 +41,46 @@ int main () {
     char word3[] = "the";
     char word4[] = "greatest";
     char word5[] = "fruit";
+    char word6[] = "fat";
 
 
 
-    //TODO load words into array from stdin
+    //TODO load words into array from stdin and keep track of words with number_of_words
     // Init test array
     load_word_into_array(word1, words_array);
     load_word_into_array(word2, words_array);
     load_word_into_array(word3, words_array);
     load_word_into_array(word4, words_array);
     load_word_into_array(word5, words_array);
+    load_word_into_array(word6, words_array);
 
-    sort_word_array_into_descending_order(words_array);
 
     //##########################################################
 
+    // Sort array, place first word in center of array,
+    // and store word properties 
+    sort_word_array_into_descending_order(words_array);
+    place_word(6, 3, across, words_array[0].text, board_array);
+    words_array[0].row = 6;
+    words_array[0].column = 3;
+    words_array[0].word_orientation = across;
 
-    printf("%s", words_array[0].text);
+    // Place remaining words into board
+    for (i = 1; i < 15; i++) {
+        if (words_array[i].text[0]) {
+            place_word_into_board(&words_array[i], board_array);
+        }
+    }
+
+    // Print solution and playing board
+    print_playing_board(board_array);
+    printf("\n\n\n");
+    print_solution_board(board_array);
 
     return 0;
 }
 
 void load_word_into_array(char word[], struct word words_array[]) {
-    //TODO Write function
     /*
        Loads given word into words array
     */
@@ -69,12 +89,13 @@ void load_word_into_array(char word[], struct word words_array[]) {
 
 }
 
-void place_word_into_board(struct word *word_to_place, char board_array[][15]) {
+int place_word_into_board(struct word *word_to_place, char board_array[][15]) {
     /*
        Checks board for common letters and places word appropriately
     */
 
-    int letter_index, row_index, column_index, len_word;
+    int letter_index, row_index, column_index, len_word, desired_row, desired_column;
+    enum Orientation existing_word_orientation, desired_orientation;
 
     len_word = strlen((*word_to_place).text);
 
@@ -85,8 +106,39 @@ void place_word_into_board(struct word *word_to_place, char board_array[][15]) {
             // Third loop iterates through board columns
             for (column_index = 0; column_index < 15; column_index++) {
                 // Check for letter in row
+                // If letter is found, attempt to place word
                 if (board_array[row_index][column_index] == (*word_to_place).text[letter_index]) {
-                    printf("%c is in row %i\n", (*word_to_place).text[letter_index], row_index);
+                    // Find orientation of already existing word
+                    existing_word_orientation = find_word_orientation(row_index, column_index,board_array);
+
+                    if (existing_word_orientation == down) {
+                        desired_orientation = across;
+                    }
+                    else if (existing_word_orientation == across) {
+                        desired_orientation = down;
+                    }
+
+                    // Find desired starting location
+                    if (desired_orientation == across) {
+                        desired_row = row_index;
+                        desired_column = column_index - letter_index;
+                    }
+                    else if (desired_orientation == down) {
+                        desired_column = column_index;
+                        desired_row = row_index - letter_index;
+                    }
+
+
+                    // for each letter, check for adjacent letters
+                    if (can_word_be_placed(desired_row, desired_column, letter_index, desired_orientation, (*word_to_place).text, board_array)) {
+                        place_word(desired_row, desired_column, desired_orientation, (*word_to_place).text, board_array);
+                        (*word_to_place).word_orientation = desired_orientation;
+                        (*word_to_place).row = desired_row;
+                        (*word_to_place).column = desired_column;
+                        return 0;
+                    }
+
+
                 }
             }
         }
@@ -193,6 +245,64 @@ void print_solution_board(char board_array[][15]) {
     }
 }
 
+enum Orientation find_word_orientation(int row, int column, char board_array[][15]) {
+    
+
+    //TODO Doesn't deal with overlapping words
+    enum Orientation word_orientation;
+
+    // Not at edges of board
+    if ((column > 0 && column < 15) && (row > 0 && row < 15)) {
+        if (board_array[row][column + 1] != 0 || board_array[row][column - 1] != 0) {
+            word_orientation = across;
+        }
+        else {
+            word_orientation = down;
+        }
+
+    }
+    
+    // Edges of board
+    if (column == 0 || column == 15) {
+        word_orientation = across;
+    }
+    if (row == 0) {
+        if (board_array[row + 1][column]) {
+            word_orientation = down;
+        }
+        else {
+            word_orientation = across;
+        }
+    }
+    else if (row == 15) {
+        if (board_array[row - 1][column]) {
+            word_orientation = down;
+        }
+        else {
+            word_orientation = across;
+        }
+    }
+
+    if (column == 0) {
+        if (board_array[row][column + 1]) {
+            word_orientation = across;
+        }
+        else {
+            word_orientation = down;
+        }
+    }
+    else if (column == 15) {
+        if (board_array[row][column - 1]) {
+            word_orientation = across;
+        }
+        else {
+            word_orientation = down;
+        }
+    }
+
+    return word_orientation;
+}
+
 void place_word(
         int row,
         int column,
@@ -219,3 +329,51 @@ void place_word(
     }
 }
 
+int can_word_be_placed(int row, int column, int shared_letter_index, enum Orientation desired_orientation, char word[], char board_array[][15]) {
+    /*
+       Checks if word can be placed in desired row, column and orientation
+       // TODO Possibly check the first letter behind position
+    */
+
+    int i, j, len_word;
+    
+    // Check if there are adjacent letters for every letter in word
+    len_word = strlen(word);
+
+    if (desired_orientation == down) {
+        for (i = 0; i < len_word; i++) {
+            // If shared word, allow flanking letters
+            if (i == shared_letter_index && board_array[row + i + 1][column] == 0) {
+                continue;
+            }
+            
+            // Check for adjacent characters
+            if (board_array[row + i][column + 1] == 0 && board_array[row + i][column - 1] == 0) {
+                continue;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+    else if (desired_orientation == across) {
+        for (i = 0; i < len_word; i++) {
+            // If shared word, allow flanking letters
+            if (i == shared_letter_index && board_array[row][column + i + 1] == 0) {
+                continue;
+            }
+
+            // Check for adjacent characters
+            if (board_array[row + 1][column + i] == 0 && board_array[row - 1][column + i] == 0) {
+                continue;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+
+
+    return 1;
+}
+    
