@@ -413,6 +413,11 @@ void user_input_words(struct word words_array[15])
 		load_word_into_array(word,words_array);
 		i++;
 	}
+
+	// If period in words_array, remove period
+	if (words_array[i].text[0] == '.') {
+	    words_array[i].text[0] = 0;
+    }
 }
 		
 int file_input_words(char input_word[], struct word words_array[15])
