@@ -224,8 +224,7 @@ void print_playing_board(char board_array[][15]) {
 
 void print_solution_board(char board_array[][15]) {
     /*
-       Prints board with pound signs
-       and words are displayed in their appropriate spaces
+       Prints board with dots and words are displayed in their appropriate spaces
     */
     
     int letter_index, row_index;
@@ -277,7 +276,7 @@ enum Orientation find_word_orientation(int row, int column, char board_array[][1
             word_orientation = down;
         }
         else {
-word_orientation = across;
+            word_orientation = across;
         }
     }
 
@@ -338,6 +337,7 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
     
     // Check if there are adjacent letters for every letter in word
     len_word = strlen(word);
+
     if (desired_orientation == down) {
         for (i = 0; i < len_word; i++) {
             // If shared word, allow flanking letters
@@ -374,6 +374,7 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
 
     return 1;
 }
+<<<<<<< HEAD
 
 
 void user_input_words(struct word words_array[15])
