@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 enum Orientation {
     down,
@@ -22,7 +23,9 @@ void print_solution_board(char board_array[][15]);
 int place_word_into_board(struct word *word_to_place, char board_array[][15]);
 int can_word_be_placed(int row, int column, int shared_letter_index, enum Orientation desired_orientation, char word[], char board_array[][15]);
 void user_input_words(struct word words_array[15]);
+void file_input_words(char input_word[], struct word words_array[15]);
 void lowercase_word(char word[15]);
+
 void place_word(
         int row,
         int column,
@@ -32,34 +35,25 @@ void place_word(
         );
 enum Orientation find_word_orientation(int row, int column, char board_array[][15]);
 
-int main () {
-    int i, number_of_words;
+int main (int argc, char *argv[]) {
+    int i;
     char board_array[15][15] = { 0 };
     struct word words_array[15] = {{ 0 }};
 
-    //#########################TESTING PURPOSES#################
-    //TODO load words into array from stdin and keep track of words with number_of_words
-    //IMPORTANT: Make sure to convert all input into LOWERCASE using tolower()
-    //for each character in the string
-    char word1[] = "notredame";
-    char word2[] = "fightingirish";
-    char word3[] = "und";
-    char word4[] = "computer";
-    char word5[] = "cse";
-    char word6[] = "programming";
 
 
-
-    // Init test array
-    load_word_into_array(word1, words_array);
-    load_word_into_array(word2, words_array);
-    load_word_into_array(word3, words_array);
-    load_word_into_array(word4, words_array);
-    load_word_into_array(word5, words_array);
-    load_word_into_array(word6, words_array);
-
-
-    //##########################################################
+    if (argc == 1)
+    {
+            user_input_words(words_array);
+    }
+    else if(argc > 2)
+    {
+            printf("Invalid input");
+    }
+    else
+    {
+            file_input_words(argv[1], words_array);
+    }
 
     // Sort array, place first word in center of array,
     // and store word properties 
@@ -283,7 +277,7 @@ enum Orientation find_word_orientation(int row, int column, char board_array[][1
             word_orientation = down;
         }
         else {
-            word_orientation = across;
+word_orientation = across;
         }
     }
 
@@ -344,7 +338,6 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
     
     // Check if there are adjacent letters for every letter in word
     len_word = strlen(word);
-
     if (desired_orientation == down) {
         for (i = 0; i < len_word; i++) {
             // If shared word, allow flanking letters
@@ -385,10 +378,14 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
 
 void user_input_words(struct word words_array[15])
 {
+	/*
+	 * Function that takes input from users
+	*/
+
 	char word[15];
 	int i = 0;
 
-	printf("Please input wordlies\n");
+	printf("Please input word.\n");
 
 	while (word[0] != '.' && i <= 15)
 	{
@@ -405,8 +402,35 @@ void user_input_words(struct word words_array[15])
 		i++;
 	}
 }
+		
+void file_input_words(char input_word[], struct word words_array[15])
+{
+	/*
+	 * Function that takes input from file
+	*/
+	FILE* file;
+	int i = 0;
+	char word[15];
+
+	file = fopen(input_word,"r");
+
+	while(!feof(file))
+	{
+		fscanf(file, "%s", word);
+		printf("%s\n", word);
+		lowercase_word(word);
+		strcpy(words_array[i].text,word);
+		i++;
+	}
+
+
+}
+
 void lowercase_word(char word[15])
 {
+	/*
+	 * Function that makes words lowercase
+	*/
 	int i;
 	for (i=0; i < strlen(word); i++)
 	{
