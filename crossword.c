@@ -249,7 +249,7 @@ void print_solution_board(char board_array[][15]) {
     for (row_index = 0; row_index < 15; row_index++) {
         for (letter_index = 0; letter_index < 15; letter_index++) {
             if (board_array[row_index][letter_index]) {
-                printf("%c ", board_array[row_index][letter_index]);
+                printf("%c ", toupper(board_array[row_index][letter_index]));
             }
             else {
                 printf(". ");
