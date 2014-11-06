@@ -21,6 +21,7 @@ void print_playing_board(char board_array[][15]);
 void print_solution_board(char board_array[][15]);
 int place_word_into_board(struct word *word_to_place, char board_array[][15]);
 int can_word_be_placed(int row, int column, int shared_letter_index, enum Orientation desired_orientation, char word[], char board_array[][15]);
+void lowercase_word(char word[15]);
 void place_word(
         int row,
         int column,
@@ -380,3 +381,11 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
     return 1;
 }
     
+void lowercase_word(char word[15])
+{
+	int i;
+	for (i=0; i < strlen(word); i++)
+	{
+		word[i] = tolower(word[i]);
+	}
+}
