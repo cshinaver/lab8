@@ -1,6 +1,8 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+
 
 enum Orientation {
     down,
@@ -25,6 +27,7 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
 void user_input_words(struct word words_array[15]);
 void file_input_words(char input_word[], struct word words_array[15]);
 void lowercase_word(char word[15]);
+void print_anagram_and_location(struct word words_array[15]);
 
 void place_word(
         int row,
@@ -74,6 +77,9 @@ int main (int argc, char *argv[]) {
     print_playing_board(board_array);
     printf("\n\n\n");
     print_solution_board(board_array);
+    printf("\n\n\n");
+
+    print_anagram_and_location(words_array);
 
     return 0;
 }
@@ -153,7 +159,6 @@ int next_empty_row(struct word words_array[15]) {
        the first row that is "empty" and returns that index
        (which also happens to be the total number of stored words)
     */
-
     //TODO Possibly determine size of array without hard-coding?
     int len_array = 15;
     int i;
@@ -437,3 +442,29 @@ void lowercase_word(char word[15])
 		word[i] = tolower(word[i]);
 	}
 }
+
+void print_anagram_and_location(struct word words_array[15])
+{
+	int i = 0,row_number = 0,column_number = 0;
+	char word[15];
+	char direction_word[15];
+	
+	for (i = 0; i < next_empty_row(words_array); i++)
+	{
+		strcpy(word,words_array[i].text);
+		strfry(word);
+
+		if (words_array[i].word_orientation == down)
+		{
+			strcpy(direction_word, "down");
+		}
+		else if (words_array[i].word_orientation == across)
+		{
+			strcpy(direction_word, "across");
+		}
+
+		printf("%2i,%2i %6s %15s\n",words_array[i].row,words_array[i].column,direction_word,word);
+
+	}
+}
+
