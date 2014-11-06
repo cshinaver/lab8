@@ -374,7 +374,6 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
 
     return 1;
 }
-<<<<<<< HEAD
 
 
 void user_input_words(struct word words_array[15])
