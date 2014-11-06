@@ -72,7 +72,9 @@ int main (int argc, char *argv[]) {
     // Place remaining words into board
     for (i = 1; i < 15; i++) {
         if (words_array[i].text[0]) {
-            place_word_into_board(&words_array[i], board_array);
+            if (!place_word_into_board(&words_array[i], board_array)) {
+                break;
+            }
         }
     }
 
@@ -142,6 +144,13 @@ int place_word_into_board(struct word *word_to_place, char board_array[][15]) {
                         (*word_to_place).word_orientation = desired_orientation;
                         (*word_to_place).row = desired_row;
                         (*word_to_place).column = desired_column;
+                        return 1;
+                    }
+                    else {
+                        printf("%s cannot be placed on the board\n\n", (*word_to_place).text);
+                        // Essentially remove word from array based on input of
+                        // next_empty_row()
+                        (*word_to_place).text[0] = 0;
                         return 0;
                     }
 
