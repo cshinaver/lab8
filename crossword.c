@@ -64,7 +64,7 @@ int main (int argc, char *argv[]) {
     // Sort array, place first word in center of array,
     // and store word properties 
     sort_word_array_into_descending_order(words_array);
-    place_word(6, 3, across, words_array[0].text, board_array);
+    place_word(7, (15 - strlen(words_array[0].text))/2, across, words_array[0].text, board_array);
     words_array[0].row = 6;
     words_array[0].column = 3;
     words_array[0].word_orientation = across;
