@@ -23,7 +23,7 @@ void print_solution_board(char board_array[][15]);
 int place_word_into_board(struct word *word_to_place, char board_array[][15]);
 int can_word_be_placed(int row, int column, int shared_letter_index, enum Orientation desired_orientation, char word[], char board_array[][15]);
 void user_input_words(struct word words_array[15]);
-void file_input_words(char input_word[], struct word words_array[15]);
+int file_input_words(char input_word[], struct word words_array[15]);
 void lowercase_word(char word[15]);
 
 void place_word(
@@ -52,7 +52,10 @@ int main (int argc, char *argv[]) {
     }
     else
     {
-            file_input_words(argv[1], words_array);
+            if (!file_input_words(argv[1], words_array)) {
+                return 0;
+            }
+
     }
 
     // Sort array, place first word in center of array,
@@ -387,13 +390,17 @@ void user_input_words(struct word words_array[15])
 
 	printf("Please input word.\n");
 
-	while (word[0] != '.' && i <= 15)
+	while (i <= 15)
 	{
 		scanf("%s", word);
 
-		if (strlen(word) > 15)
+		if (word[0] == '.') {
+		    break;
+        }
+
+		if (strlen(word) > 15 || strlen(word) == 1)
 		{
-			printf("Please print a word less than 16 characters: ");
+			printf("Please print a word less than 16 characters and greater than 1 character: ");
 			scanf("%s",word);
 		}
 
@@ -403,7 +410,7 @@ void user_input_words(struct word words_array[15])
 	}
 }
 		
-void file_input_words(char input_word[], struct word words_array[15])
+int file_input_words(char input_word[], struct word words_array[15])
 {
 	/*
 	 * Function that takes input from file
@@ -417,12 +424,17 @@ void file_input_words(char input_word[], struct word words_array[15])
 	while(!feof(file))
 	{
 		fscanf(file, "%s", word);
-		printf("%s\n", word);
+		if (strlen(word) == 1) {
+		    // Return 0 if there is a single character word
+		    printf("Please choose a file that does not contain a single character word\n");
+		    return 0;
+        }
 		lowercase_word(word);
 		strcpy(words_array[i].text,word);
 		i++;
 	}
 
+	return 1;
 
 }
 
