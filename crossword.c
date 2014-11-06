@@ -398,6 +398,7 @@ void user_input_words(struct word words_array[15])
 	/*
 	 * Function that takes input from users
 	*/
+	//TODO don't allow punctuation or spaces
 
 	char word[15];
 	int i = 0;
