@@ -51,7 +51,7 @@ int main (int argc, char *argv[]) {
     }
     else if(argc > 2)
     {
-            printf("Invalid input");
+            printf("Too many arguments passed. Please pass 1 text file at most.");
     }
     else
     {
