@@ -21,6 +21,7 @@ void print_playing_board(char board_array[][15]);
 void print_solution_board(char board_array[][15]);
 int place_word_into_board(struct word *word_to_place, char board_array[][15]);
 int can_word_be_placed(int row, int column, int shared_letter_index, enum Orientation desired_orientation, char word[], char board_array[][15]);
+void user_input_words(struct word words_array[15]);
 void lowercase_word(char word[15]);
 void place_word(
         int row,
@@ -380,7 +381,30 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
 
     return 1;
 }
-    
+
+
+void user_input_words(struct word words_array[15])
+{
+	char word[15];
+	int i = 0;
+
+	printf("Please input wordlies\n");
+
+	while (word[0] != '.' && i <= 15)
+	{
+		scanf("%s", word);
+
+		if (strlen(word) > 15)
+		{
+			printf("Please print a word less than 16 characters: ");
+			scanf("%s",word);
+		}
+
+		lowercase_word(word);
+		load_word_into_array(word,words_array);
+		i++;
+	}
+}
 void lowercase_word(char word[15])
 {
 	int i;
