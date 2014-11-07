@@ -106,7 +106,7 @@ int place_word_into_board(struct word *word_to_place, char board_array[][15]) {
     int letter_index, row_index, column_index, len_word, desired_row, desired_column;
     enum Orientation existing_word_orientation, desired_orientation;
 
-    len_word = strlen((*word_to_place).text);
+    len_word = strlen(word_to_place->text);
 
     // First loop, iterates through letters of given word
     for (letter_index = 0; letter_index < len_word; letter_index++) {
@@ -116,7 +116,7 @@ int place_word_into_board(struct word *word_to_place, char board_array[][15]) {
             for (column_index = 0; column_index < 15; column_index++) {
                 // Check for letter in row
                 // If letter is found, attempt to place word
-                if (board_array[row_index][column_index] == (*word_to_place).text[letter_index]) {
+                if (board_array[row_index][column_index] == word_to_place->text[letter_index]) {
                     // Find orientation of already existing word
                     existing_word_orientation = find_word_orientation(row_index, column_index,board_array);
 
@@ -139,18 +139,18 @@ int place_word_into_board(struct word *word_to_place, char board_array[][15]) {
 
 
                     // for each letter, check for adjacent letters
-                    if (can_word_be_placed(desired_row, desired_column, letter_index, desired_orientation, (*word_to_place).text, board_array)) {
-                        place_word(desired_row, desired_column, desired_orientation, (*word_to_place).text, board_array);
-                        (*word_to_place).word_orientation = desired_orientation;
-                        (*word_to_place).row = desired_row;
-                        (*word_to_place).column = desired_column;
+                    if (can_word_be_placed(desired_row, desired_column, letter_index, desired_orientation, word_to_place->text, board_array)) {
+                        place_word(desired_row, desired_column, desired_orientation, word_to_place->text, board_array);
+                        word_to_place->word_orientation = desired_orientation;
+                        word_to_place->row = desired_row;
+                        word_to_place->column = desired_column;
                         return 1;
                     }
                     else {
                         printf("%s cannot be placed on the board\n\n", (*word_to_place).text);
                         // Essentially remove word from array based on input of
                         // next_empty_row()
-                        (*word_to_place).text[0] = 0;
+                        word_to_place->text[0] = 0;
                         return 0;
                     }
                 }
@@ -160,7 +160,7 @@ int place_word_into_board(struct word *word_to_place, char board_array[][15]) {
     printf("%s cannot be placed on the board\n\n", (*word_to_place).text);
     // Essentially remove word from array based on input of
     // next_empty_row()
-    (*word_to_place).text[0] = 0;
+    word_to_place->text[0] = 0;
     return 0;
 
 
