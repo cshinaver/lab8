@@ -45,11 +45,12 @@ int main (int argc, char *argv[]) {
 
 
 
+    // Determine input source
     if (argc == 1)
     {
             user_input_words(words_array);
     }
-    else if(argc > 2)
+    else if (argc > 3)
     {
             printf("Too many arguments passed. Please pass 1 text file at most.");
     }
@@ -59,6 +60,11 @@ int main (int argc, char *argv[]) {
                 return 0;
             }
 
+    }
+
+    // Check for output redirection
+    if (argv[2]) {
+        freopen(argv[2], "w", stdout);
     }
 
     // Sort array, place first word in center of array,
