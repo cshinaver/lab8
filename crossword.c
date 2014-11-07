@@ -177,7 +177,6 @@ int next_empty_row(struct word words_array[15]) {
        the first row that is "empty" and returns that index
        (which also happens to be the total number of stored words)
     */
-    //TODO Possibly determine size of array without hard-coding?
     int len_array = 15;
     int i;
 
@@ -408,6 +407,7 @@ void user_input_words(struct word words_array[15])
 
 	char word[15];
 	int i = 0;
+	int j;
 
 	printf("Please input word.\n");
 
@@ -415,14 +415,27 @@ void user_input_words(struct word words_array[15])
 	{
 		scanf("%s", word);
 
+		// If encounters period, break
 		if (word[0] == '.') {
 		    break;
         }
 
+        // Check for punctuation
+        for (j = 0; j < strlen(word); j++) {
+            if (!isalpha(word[j])) {
+                j = -1;
+                break;
+            }
+        }
+        if (j == -1) {
+            printf("Please input a word containing only valid letters of the alphabet\n");
+            continue;
+        }
+
 		if (strlen(word) > 15 || strlen(word) == 1)
 		{
-			printf("Please print a word less than 16 characters and greater than 1 character: ");
-			scanf("%s",word);
+			printf("Please input a word less than 16 characters and greater than 1 character: ");
+			continue;
 		}
 
 		lowercase_word(word);
@@ -443,6 +456,7 @@ int file_input_words(char input_word[], struct word words_array[15])
 	*/
 	FILE* file;
 	int i = 0;
+	int j;
 	char word[15];
 
 	file = fopen(input_word,"r");
@@ -455,6 +469,20 @@ int file_input_words(char input_word[], struct word words_array[15])
 		    printf("Please choose a file that does not contain a single character word\n");
 		    return 0;
         }
+
+        // Check for punctuation
+        for (j = 0; j < strlen(word); j++) {
+            if (!isalpha(word[j])) {
+                j = -1;
+                break;
+            }
+        }
+        if (j == -1) {
+            printf("Please choose a file containing only valid letters of the alphabet\n");
+            return 0;
+        }
+
+
 		lowercase_word(word);
 		strcpy(words_array[i].text,word);
 		i++;
