@@ -154,17 +154,14 @@ int place_word_into_board(struct word *word_to_place, char board_array[][15]) {
                         return 0;
                     }
                 }
-                else {
-                    printf("%s cannot be placed on the board\n\n", (*word_to_place).text);
-                    // Essentially remove word from array based on input of
-                    // next_empty_row()
-                    (*word_to_place).text[0] = 0;
-                    return 0;
-                
-                }
             }
         }
     }
+    printf("%s cannot be placed on the board\n\n", (*word_to_place).text);
+    // Essentially remove word from array based on input of
+    // next_empty_row()
+    (*word_to_place).text[0] = 0;
+    return 0;
 
 
 }
