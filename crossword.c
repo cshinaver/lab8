@@ -152,13 +152,7 @@ int place_word_into_board(struct word *word_to_place, char board_array[][15]) {
                         word_to_place->column = desired_column;
                         return 1;
                     }
-                    else {
-                        printf("%s cannot be placed on the board\n\n", (*word_to_place).text);
-                        // Essentially remove word from array based on input of
-                        // next_empty_row()
-                        word_to_place->text[0] = 0;
-                        return 0;
-                    }
+                    continue;
                 }
             }
         }
@@ -368,6 +362,8 @@ int can_word_be_placed(int row, int column, int shared_letter_index, enum Orient
             // If shared word, allow flanking letters
             if (i == shared_letter_index && board_array[row + i + 1][column] == 0) {
                 continue;
+            }
+            else {
             }
             
             // Check for adjacent characters
