@@ -63,7 +63,7 @@ int main (int argc, char *argv[]) {
     }
 
     // Check for output redirection
-    if (argv[2]) {
+    if (argc == 3) {
         freopen(argv[2], "w", stdout);
     }
 
